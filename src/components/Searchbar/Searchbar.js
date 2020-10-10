@@ -28,7 +28,7 @@ class Searchbar extends Component {
             type="text"
             autoComplete="off"
             autoFocus
-            placeholder="Search images and photos"
+            placeholder="Search movies"
             value={this.state.query}
             onChange={this.handleChange}
           />

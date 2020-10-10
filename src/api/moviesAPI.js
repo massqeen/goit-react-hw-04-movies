@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-const API_KEY = '64c4c68f9f9e1f4bbe0812714f8538a7';
 const url = 'https://api.themoviedb.org/3/';
-const startingURL = `${url}/trending/movie/day`;
+const trendingURL = `${url}/trending/movie/day`;
 const searchURL = `${url}/search/movie?language=en-US&include_adult=true`;
 
 const options = {
@@ -14,9 +13,16 @@ const options = {
   },
 };
 
-const fetchMovies = ({ searchQuery = '', page = 1, initial = true }) => {
-  if (initial) {
-    return fetch(`${startingURL}`, options)
+const moviesAPI = {
+  fetchTrendingMovies() {
+    return fetch(`${trendingURL}`, options)
+      .then((res) => res.json())
+      .then(({ results }) => {
+        return { results };
+      });
+  },
+  fetchQueryMovies(searchQuery = '', page = 1) {
+    return fetch(`${searchURL}&query=${searchQuery}&page=${page}`, options)
       .then((res) => res.json())
       .then(({ results, total_results: total }) => {
         if (!results.length) {
@@ -24,21 +30,14 @@ const fetchMovies = ({ searchQuery = '', page = 1, initial = true }) => {
         }
         return { total, results };
       });
-  }
-  return fetch(`${searchURL}&query=${searchQuery}&page=${page}`, options)
-    .then((res) => res.json())
-    .then(({ results, total_results: total }) => {
-      if (!results.length) {
-        throw new Error('Unfortunately, your request not found.');
-      }
-      return { total, results };
-    });
+  },
 };
 
-fetchMovies.propTypes = {
-  searchQuery: PropTypes.string.isRequired,
-  page: PropTypes.number.isRequired,
-  initial: PropTypes.bool.isRequired,
-};
+//
+// fetchMovies.propTypes = {
+//   searchQuery: PropTypes.string.isRequired,
+//   page: PropTypes.number.isRequired,
+//   initial: PropTypes.bool.isRequired,
+// };
 
-export default { fetchMovies };
+export default moviesAPI;
