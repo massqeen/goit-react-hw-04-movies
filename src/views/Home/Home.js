@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moviesAPI from '../../api/moviesAPI';
-import MoviesList from '../MoviesList/MoviesList';
-import Spinner from '../Spinner';
+import MoviesList from '../../components/MoviesList/MoviesList';
+import Spinner from '../../components/Spinner';
 
 class Home extends Component {
   state = {
@@ -36,7 +36,9 @@ class Home extends Component {
         {error && (
           <p>{`Sorry, no trending movies for today. ${error.message}`}</p>
         )}
-        {movies.length > 0 && <MoviesList movies={movies} />}
+        {movies.length > 0 && (
+          <MoviesList movies={movies} match={{ url: '/movies' }} />
+        )}
         {loading && <Spinner />}
       </>
     );

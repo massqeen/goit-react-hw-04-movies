@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Container from './components/Container/Container';
-import Home from './components/Home/Home';
-import Movies from './components/Movies/Movies';
+import Home from './views/Home/Home';
+import Movies from './views/Movies/Movies';
 import Navigation from './components/Navigation/Navigation';
 
 class App extends Component {
