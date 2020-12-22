@@ -2,37 +2,42 @@ import { useEffect, useState } from 'react';
 
 const useFetch = (url, options) => {
   const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(null);
+  const [fetchLoading, setFetchLoading] = useState(false);
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(url);
+    if (searchParams.has('query') && !searchParams.get('query')) {
+      return;
+    }
     const abortController = new AbortController();
     const signal = abortController.signal;
     const doFetch = async () => {
-      setLoading(true);
+      setFetchLoading(true);
       try {
         const res = await fetch(url, options);
         const json = await res.json();
         if (!signal.aborted) {
           setResponse(json.results);
-          setError(null);
+          setErr(null);
         }
       } catch (e) {
         if (!signal.aborted) {
-          setError(e);
+          setErr(e);
         }
       } finally {
         if (!signal.aborted) {
-          setLoading(false);
+          setFetchLoading(false);
         }
       }
     };
     doFetch();
+    // eslint-disable-next-line consistent-return
     return () => {
       abortController.abort();
     };
-  }, [options, url]);
+  }, [url, options]);
 
-  return { response, error, loading };
+  return { response, err, fetchLoading };
 };
 export default useFetch;

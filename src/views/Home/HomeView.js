@@ -1,13 +1,16 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router';
 import { trendingURL, options } from '../../api/moviesAPI';
 import MoviesList from '../../components/MoviesList/MoviesList';
 import Spinner from '../../components/Spinner';
 import useFetch from '../../hooks/useFetch';
-import { useRouteMatch } from 'react-router';
 
 const HomeView = () => {
   const { url } = useRouteMatch();
-  const { response, error, loading } = useFetch(trendingURL, options);
+  const { response, err: error, fetchLoading: loading } = useFetch(
+    trendingURL,
+    options
+  );
 
   return (
     <>

@@ -32,5 +32,5 @@ const moviesAPI = {
   },
 };
 
-export { trendingURL, options };
+export { trendingURL, searchURL, options };
 export default moviesAPI;

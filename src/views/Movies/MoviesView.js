@@ -1,79 +1,47 @@
-import React, { Component } from 'react';
-import moviesAPI from '../../api/moviesAPI';
+import React, { useEffect, useState } from 'react';
+import { useRouteMatch } from 'react-router';
+import { searchURL, options } from '../../api/moviesAPI';
 import Searchbar from '../../components/Searchbar/Searchbar';
 import Spinner from '../../components/Spinner';
 import MoviesList from '../../components/MoviesList/MoviesList';
+import useFetch from '../../hooks/useFetch';
 
-class MoviesView extends Component {
-  state = {
-    movies: [],
-    loading: false,
-    error: null,
-    searchQuery: '',
-    page: 1,
+const MoviesView = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { url } = useRouteMatch();
+
+  const { response, err, fetchLoading } = useFetch(
+    `${searchURL}&query=${searchQuery}&page=${page}`,
+    options
+  );
+  console.log(response, err, fetchLoading);
+  useEffect(() => {
+    setMovies(response);
+    setLoading(fetchLoading);
+    setError(err);
+  }, [err, fetchLoading, response]);
+
+  const handleSearchFormSubmit = (query) => {
+    setSearchQuery(query);
+    setPage((state) => state + 1);
+    setMovies(response);
+    setError(error);
+    setLoading(loading);
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const prevQuery = prevState.searchQuery;
-    const nextQuery = this.state.searchQuery;
+  return (
+    <>
+      <Searchbar onSubmit={handleSearchFormSubmit} />
+      {error && <p>{`Oops, something went wrong. ${error.message}`}</p>}
+      {movies && <MoviesList movies={movies} url={url} />}
 
-    if (prevQuery !== nextQuery) {
-      this.fetchMovies();
-    }
-  }
-
-  scrollToBottom = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
-  };
-
-  fetchMovies() {
-    const { searchQuery, page } = this.state;
-    this.setState({ loading: true });
-
-    moviesAPI
-      .fetchQueryMovies(searchQuery, page)
-      .then(({ total, results }) => {
-        this.setState((prevState) => ({
-          movies: [...prevState.movies, ...results],
-          page: prevState.page + 1,
-          totalImages: total,
-        }));
-        if (page !== 1) {
-          this.scrollToBottom();
-        }
-      })
-      .catch((error) => this.setState({ error }))
-      .finally(() => this.setState({ loading: false }));
-  }
-
-  handleSearchFormSubmit = (query) => {
-    this.setState({
-      searchQuery: query,
-      page: 1,
-      movies: [],
-      error: null,
-    });
-  };
-
-  render() {
-    const { loading, error, movies } = this.state;
-
-    return (
-      <>
-        <Searchbar onSubmit={this.handleSearchFormSubmit} />
-        {error && <p>{`Oops, something went wrong. ${error.message}`}</p>}
-        {movies.length > 0 && (
-          // eslint-disable-next-line react/prop-types
-          <MoviesList movies={movies} match={this.props.match} />
-        )}
-
-        {loading && <Spinner />}
-      </>
-    );
-  }
-}
+      {loading && <Spinner />}
+    </>
+  );
+};
 
 export default MoviesView;
