@@ -4,7 +4,7 @@ import Searchbar from '../../components/Searchbar/Searchbar';
 import Spinner from '../../components/Spinner';
 import MoviesList from '../../components/MoviesList/MoviesList';
 
-class Movies extends Component {
+class MoviesView extends Component {
   state = {
     movies: [],
     loading: false,
@@ -66,6 +66,7 @@ class Movies extends Component {
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
         {error && <p>{`Oops, something went wrong. ${error.message}`}</p>}
         {movies.length > 0 && (
+          // eslint-disable-next-line react/prop-types
           <MoviesList movies={movies} match={this.props.match} />
         )}
 
@@ -75,4 +76,4 @@ class Movies extends Component {
   }
 }
 
-export default Movies;
+export default MoviesView;

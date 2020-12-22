@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Container from './components/Container/Container';
-import Home from './views/Home/Home';
-import Movies from './views/Movies/Movies';
+import HomeView from './views/Home/HomeView';
+import MoviesView from './views/Movies/MoviesView';
 import Navigation from './components/Navigation/Navigation';
 
 class App extends Component {
@@ -13,8 +13,8 @@ class App extends Component {
       <Container>
         <Navigation />
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/movies" exact component={Movies} />
+          <Route path="/" exact component={HomeView} />
+          <Route path="/movies" exact component={MoviesView} />
           <Redirect to="/" />
         </Switch>
       </Container>

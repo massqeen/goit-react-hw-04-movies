@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import PropTypes from 'prop-types';
 
 const style = { textDecoration: 'none', fontSize: '16px', color: '#3f51b5' };
 const Navigation = () => (
