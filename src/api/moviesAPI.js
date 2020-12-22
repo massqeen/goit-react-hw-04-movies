@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 const url = 'https://api.themoviedb.org/3/';
 const trendingURL = `${url}/trending/movie/day`;
 const searchURL = `${url}/search/movie?language=en-US&include_adult=true`;
@@ -32,12 +31,5 @@ const moviesAPI = {
       });
   },
 };
-
-//
-// fetchMovies.propTypes = {
-//   searchQuery: PropTypes.string.isRequired,
-//   page: PropTypes.number.isRequired,
-//   initial: PropTypes.bool.isRequired,
-// };
 
 export default moviesAPI;
