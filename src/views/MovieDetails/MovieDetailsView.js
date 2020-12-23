@@ -5,7 +5,8 @@ import { detailsURL, options } from '../../api/moviesAPI';
 import Spinner from '../../components/Spinner';
 import useFetch from '../../hooks/useFetch';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
-import CastContainer from '../../containers/CastContainer/CastContainer';
+import CastContainer from '../../containers/Cast/CastContainer';
+import ReviewsContainer from '../../containers/Reviews/ReviewsContainer';
 
 const MovieDetailsView = () => {
   const [movie, setMovie] = useState(null);
@@ -17,6 +18,7 @@ const MovieDetailsView = () => {
     `${detailsURL}/${movieId}`,
     options
   );
+  console.log(response, err, fetchLoading);
   const { url } = useRouteMatch();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const MovieDetailsView = () => {
       {loading && <Spinner />}
       <Switch>
         <Route path="/movies/:movieId/cast" component={CastContainer} />
-        {/*<Route path="/movies/:movieId/reviews" component={MovieDetailsView} />*/}
+        <Route path="/movies/:movieId/reviews" component={ReviewsContainer} />
       </Switch>
     </>
   );

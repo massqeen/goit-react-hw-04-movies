@@ -12,10 +12,15 @@ const useFetch = (url, options) => {
     }
     const abortController = new AbortController();
     const signal = abortController.signal;
+
     const doFetch = async () => {
       setFetchLoading(true);
       try {
         const res = await fetch(url, options);
+        if (!res.ok) {
+          setErr(new Error('Not found!'));
+          return;
+        }
         const json = await res.json();
         if (!signal.aborted) {
           setResponse(json);

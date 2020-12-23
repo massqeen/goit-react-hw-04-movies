@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { detailsURL, options } from '../../api/moviesAPI';
-// import Cast from '../../components/Cast/Cast';
 import Spinner from '../../components/Spinner';
 import useFetch from '../../hooks/useFetch';
 import ActorsList from '../../components/ActorsList/ActorsList';
