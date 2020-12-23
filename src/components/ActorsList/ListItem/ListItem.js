@@ -15,7 +15,7 @@ const ListItem = ({ actor }) => (
       width="100px"
     />
     <p>{actor?.name}</p>
-    <p>Character: {actor?.character}</p>
+    <p>Character: {actor?.character || 'unknown'}</p>
   </li>
 );
 

@@ -6,7 +6,7 @@ import useFetch from '../../hooks/useFetch';
 import ActorsList from '../../components/ActorsList/ActorsList';
 
 const CastContainer = () => {
-  const [actors, setActors] = useState([]);
+  const [actors, setActors] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
@@ -28,6 +28,7 @@ const CastContainer = () => {
   return (
     <>
       {error && <p>{`Oops, something went wrong. ${error.message}`}</p>}
+      {actors && actors.length === 0 && <p>Actors unknown.</p>}
       {actors && <ActorsList actors={actors} />}
       {loading && <Spinner />}
     </>
