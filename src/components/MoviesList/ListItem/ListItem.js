@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ListItem = ({ url, id, title }) => (
   <li>
-    <Link to={`/${url}/${id}`}>{title}</Link>
+    <Link to={`${url}/${id}`}>{title}</Link>
   </li>
 );
 

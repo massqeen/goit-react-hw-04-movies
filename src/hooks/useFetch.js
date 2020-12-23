@@ -18,7 +18,7 @@ const useFetch = (url, options) => {
         const res = await fetch(url, options);
         const json = await res.json();
         if (!signal.aborted) {
-          setResponse(json.results);
+          setResponse(json);
           setErr(null);
         }
       } catch (e) {

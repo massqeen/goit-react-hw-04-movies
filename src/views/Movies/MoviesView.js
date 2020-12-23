@@ -18,17 +18,20 @@ const MoviesView = () => {
     `${searchURL}&query=${searchQuery}&page=${page}`,
     options
   );
-  console.log(response, err, fetchLoading);
+  console.log(response, err, fetchLoading, setPage);
   useEffect(() => {
-    setMovies(response);
+    if (response) {
+      setMovies(response.results);
+    }
     setLoading(fetchLoading);
     setError(err);
   }, [err, fetchLoading, response]);
 
   const handleSearchFormSubmit = (query) => {
-    setSearchQuery(query);
-    setPage((state) => state + 1);
-    setMovies(response);
+    setSearchQuery((prevState) => (prevState !== query ? query : prevState));
+    if (response) {
+      setMovies(response.results);
+    }
     setError(error);
     setLoading(loading);
   };
@@ -38,7 +41,6 @@ const MoviesView = () => {
       <Searchbar onSubmit={handleSearchFormSubmit} />
       {error && <p>{`Oops, something went wrong. ${error.message}`}</p>}
       {movies && <MoviesList movies={movies} url={url} />}
-
       {loading && <Spinner />}
     </>
   );

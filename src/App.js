@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Container from './components/Container/Container';
 import HomeView from './views/Home/HomeView';
 import MoviesView from './views/Movies/MoviesView';
+import MovieDetailsView from './views/MovieDetails/MovieDetailsView';
 import Navigation from './components/Navigation/Navigation';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={HomeView} />
           <Route path="/movies" exact component={MoviesView} />
+          <Route path="/movies/:movieId" component={MovieDetailsView} />
           <Redirect to="/" />
         </Switch>
       </Container>

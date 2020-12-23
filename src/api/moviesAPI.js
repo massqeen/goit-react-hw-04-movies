@@ -1,5 +1,6 @@
-const url = 'https://api.themoviedb.org/3/';
+const url = 'https://api.themoviedb.org/3';
 const trendingURL = `${url}/trending/movie/day`;
+const detailsURL = `${url}/movie`;
 const searchURL = `${url}/search/movie?language=en-US&include_adult=true`;
 
 const options = {
@@ -32,5 +33,5 @@ const moviesAPI = {
   },
 };
 
-export { trendingURL, searchURL, options };
+export { trendingURL, detailsURL, searchURL, options };
 export default moviesAPI;
