@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useRouteMatch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import { detailsURL, options } from '../../api/moviesAPI';
 import Spinner from '../../components/Spinner';
 import useFetch from '../../hooks/useFetch';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
+import CastContainer from '../../containers/CastContainer/CastContainer';
 
 const MovieDetailsView = () => {
   const [movie, setMovie] = useState(null);
@@ -15,6 +17,7 @@ const MovieDetailsView = () => {
     `${detailsURL}/${movieId}`,
     options
   );
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     if (response) {
@@ -27,8 +30,12 @@ const MovieDetailsView = () => {
   return (
     <>
       {error && <p>{`Oops, something went wrong. ${error.message}`}</p>}
-      {movie && <MovieDetails movie={movie} />}
+      {movie && <MovieDetails movie={movie} url={url} />}
       {loading && <Spinner />}
+      <Switch>
+        <Route path="/movies/:movieId/cast" component={CastContainer} />
+        {/*<Route path="/movies/:movieId/reviews" component={MovieDetailsView} />*/}
+      </Switch>
     </>
   );
 };

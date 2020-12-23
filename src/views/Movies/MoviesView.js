@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router';
+import { useRouteMatch, useHistory, useLocation } from 'react-router';
 import { searchURL, options } from '../../api/moviesAPI';
 import Searchbar from '../../components/Searchbar/Searchbar';
 import Spinner from '../../components/Spinner';
@@ -7,18 +7,21 @@ import MoviesList from '../../components/MoviesList/MoviesList';
 import useFetch from '../../hooks/useFetch';
 
 const MoviesView = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { url } = useRouteMatch();
 
+  const history = useHistory();
+  const location = useLocation();
+  const urlQuery = new URLSearchParams(location.search).get('query') ?? '';
+
   const { response, err, fetchLoading } = useFetch(
-    `${searchURL}&query=${searchQuery}&page=${page}`,
+    `${searchURL}&query=${urlQuery}&page=${page}`,
     options
   );
-  console.log(response, err, fetchLoading, setPage);
+  console.log(setPage);
   useEffect(() => {
     if (response) {
       setMovies(response.results);
@@ -27,13 +30,19 @@ const MoviesView = () => {
     setError(err);
   }, [err, fetchLoading, response]);
 
-  const handleSearchFormSubmit = (query) => {
-    setSearchQuery((prevState) => (prevState !== query ? query : prevState));
+  useEffect(() => {
     if (response) {
       setMovies(response.results);
     }
+  }, [response, urlQuery]);
+
+  const handleSearchFormSubmit = (query) => {
+    if (!query) {
+      return;
+    }
     setError(error);
     setLoading(loading);
+    history.push({ ...location, search: `query=${query}` });
   };
 
   return (
