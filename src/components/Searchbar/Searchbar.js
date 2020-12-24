@@ -1,42 +1,37 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styles from './Searchbar.module.css';
 import PropTypes from 'prop-types';
 
-class Searchbar extends Component {
-  state = { query: '' };
-
-  handleChange = (e) => {
-    this.setState({ query: e.currentTarget.value });
+const Searchbar = ({ onSubmit }) => {
+  const [query, setQuery] = useState('');
+  const handleChange = ({ currentTarget }) => {
+    setQuery(currentTarget.value);
   };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    this.props.onSubmit(this.state.query.trim());
-    this.setState({ query: '' });
+    onSubmit(query.trim());
+    setQuery('');
   };
 
-  render() {
-    return (
-      <header className={styles.bar}>
-        <form className={styles.form} onSubmit={this.handleSubmit}>
-          <button type="submit" className={styles.button}>
-            <span className={styles.label}>Search</span>
-          </button>
-          <input
-            className={styles.input}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search movies"
-            value={this.state.query}
-            onChange={this.handleChange}
-          />
-        </form>
-      </header>
-    );
-  }
-}
+  return (
+    <header className={styles.bar}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <button type="submit" className={styles.button}>
+          <span className={styles.label}>Search</span>
+        </button>
+        <input
+          className={styles.input}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
+          value={query}
+          onChange={handleChange}
+        />
+      </form>
+    </header>
+  );
+};
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,

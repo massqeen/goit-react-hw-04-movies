@@ -13,25 +13,4 @@ const options = {
   },
 };
 
-const moviesAPI = {
-  fetchTrendingMovies() {
-    return fetch(`${trendingURL}`, options)
-      .then((res) => res.json())
-      .then(({ results }) => {
-        return { results };
-      });
-  },
-  fetchQueryMovies(searchQuery = '', page = 1) {
-    return fetch(`${searchURL}&query=${searchQuery}&page=${page}`, options)
-      .then((res) => res.json())
-      .then(({ results, total_results: total }) => {
-        if (!results.length) {
-          throw new Error('Unfortunately, your request not found.');
-        }
-        return { total, results };
-      });
-  },
-};
-
 export { trendingURL, detailsURL, searchURL, options };
-export default moviesAPI;

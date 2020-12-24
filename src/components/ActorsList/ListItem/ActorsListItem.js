@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import noPhoto from '../../../assets/images/noPhoto.jpg';
 
-const ListItem = ({ actor }) => (
+const ActorsListItem = ({ actor }) => (
   <li>
     <img
       src={
@@ -19,8 +19,8 @@ const ListItem = ({ actor }) => (
   </li>
 );
 
-export default ListItem;
+export default ActorsListItem;
 
-ListItem.propTypes = {
+ActorsListItem.propTypes = {
   actor: PropTypes.object.isRequired,
 };

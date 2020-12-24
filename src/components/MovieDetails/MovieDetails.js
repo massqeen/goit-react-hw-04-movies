@@ -3,10 +3,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import noPoster from '../../assets/images/noPoster.jpg';
 
-const MovieDetails = ({ movie, url }) => {
+const MovieDetails = ({ movie, url, from }) => {
   return (
     <>
-      {' '}
       <div>
         <img
           src={
@@ -34,10 +33,14 @@ const MovieDetails = ({ movie, url }) => {
       <div>
         <ul>
           <li>
-            <NavLink to={`${url}/cast`}>Cast</NavLink>
+            <NavLink to={{ pathname: `${url}/cast`, state: { from } }}>
+              Cast
+            </NavLink>
           </li>
           <li>
-            <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+            <NavLink to={{ pathname: `${url}/reviews`, state: { from } }}>
+              Reviews
+            </NavLink>
           </li>
         </ul>
       </div>
@@ -50,4 +53,5 @@ export default MovieDetails;
 MovieDetails.propTypes = {
   movie: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired,
+  from: PropTypes.string.isRequired,
 };

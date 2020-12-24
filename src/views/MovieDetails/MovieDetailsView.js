@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useRouteMatch } from 'react-router';
+import {
+  useParams,
+  useRouteMatch,
+  useLocation,
+  useHistory,
+} from 'react-router';
 import { Route, Switch } from 'react-router-dom';
-import { detailsURL, options } from '../../api/moviesAPI';
+import { Button } from '@material-ui/core';
+import { detailsURL, options } from '../../assets/api/moviesAPI';
 import Spinner from '../../components/Spinner';
 import useFetch from '../../hooks/useFetch';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
@@ -18,8 +24,9 @@ const MovieDetailsView = () => {
     `${detailsURL}/${movieId}`,
     options
   );
-  console.log(response, err, fetchLoading);
-  const { url } = useRouteMatch();
+  const { url, path } = useRouteMatch();
+  const { state } = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     if (response) {
@@ -29,14 +36,32 @@ const MovieDetailsView = () => {
     setError(err);
   }, [err, fetchLoading, response]);
 
+  const goBackHandler = () => {
+    if (!state) {
+      history.push({ pathname: '/' });
+      return;
+    }
+    history.push(state.from);
+  };
+
   return (
     <>
       {error && <p>{`Oops, something went wrong. ${error.message}`}</p>}
-      {movie && <MovieDetails movie={movie} url={url} />}
+      {movie && (
+        <Button
+          onClick={goBackHandler}
+          variant="outlined"
+          color="primary"
+          style={{ backgroundColor: '#f0f0f0' }}
+        >
+          Go back
+        </Button>
+      )}
+      {movie && <MovieDetails movie={movie} url={url} from={state.from} />}
       {loading && <Spinner />}
       <Switch>
-        <Route path="/movies/:movieId/cast" component={CastContainer} />
-        <Route path="/movies/:movieId/reviews" component={ReviewsContainer} />
+        <Route path={`${path}/cast`} component={CastContainer} />
+        <Route path={`${path}/reviews`} component={ReviewsContainer} />
       </Switch>
     </>
   );

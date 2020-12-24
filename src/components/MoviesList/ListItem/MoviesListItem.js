@@ -2,16 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ListItem = ({ url, id, title }) => (
+const MoviesListItem = ({ url, id, title, from }) => (
   <li>
-    <Link to={`${url}/${id}`}>{title}</Link>
+    <Link to={{ pathname: `${url}/${id}`, state: { from } }}>{title}</Link>
   </li>
 );
 
-export default ListItem;
+export default MoviesListItem;
 
-ListItem.propTypes = {
+MoviesListItem.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  from: PropTypes.string.isRequired,
 };

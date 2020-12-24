@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListItem from './ListItem/ListItem';
+import ActorsListItem from './ListItem/ActorsListItem';
 
 const ActorsList = ({ actors }) => (
   <ul>
     {actors.map((actor, i) => (
-      <ListItem key={i} actor={actor} />
+      <ActorsListItem key={i} actor={actor} />
     ))}
   </ul>
 );
