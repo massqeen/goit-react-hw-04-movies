@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Divider from '@material-ui/core/Divider';
+import styles from './MovieDetails.module.css';
 import noPoster from '../../assets/images/noPoster.jpg';
 
 const MovieDetails = ({ movie, url, from }) => {
   return (
     <>
-      <div>
+      <div className={styles.wrapper}>
         <img
           src={
             movie?.poster_path
@@ -17,28 +19,37 @@ const MovieDetails = ({ movie, url, from }) => {
           height="450px"
           width="300px"
         />
-        <h2>
-          {movie?.title}{' '}
-          {movie?.release_date && (
-            <span> ({movie?.release_date?.slice(0, 4)})</span>
-          )}
-        </h2>
-        <h3>Overview</h3>
-        <p>{movie?.overview}</p>
-        <h3>Genres</h3>
-        {movie?.genres.map((g) => (
-          <span key={g?.id}>{g?.name} </span>
-        ))}
+        <div className={styles.contentInfoWrapper}>
+          <h2>
+            {movie?.title}{' '}
+            {movie?.release_date && (
+              <span> ({movie?.release_date?.slice(0, 4)})</span>
+            )}
+          </h2>
+          <h3>Overview</h3>
+          <p>{movie?.overview}</p>
+          <h3>Genres</h3>
+          {movie?.genres.map((g) => (
+            <span key={g?.id}>{g?.name} </span>
+          ))}
+        </div>
       </div>
+      <Divider style={{ margin: '16px' }} />
       <div>
-        <ul>
-          <li>
-            <NavLink to={{ pathname: `${url}/cast`, state: { from } }}>
-              Cast
+        <ul className={styles.additionLinks}>
+          <li style={{ marginRight: '20px' }}>
+            <NavLink
+              to={{ pathname: `${url}/cast`, state: { from } }}
+              activeStyle={{ color: 'red' }}
+            >
+              Credits
             </NavLink>
           </li>
           <li>
-            <NavLink to={{ pathname: `${url}/reviews`, state: { from } }}>
+            <NavLink
+              to={{ pathname: `${url}/reviews`, state: { from } }}
+              activeStyle={{ color: 'red' }}
+            >
               Reviews
             </NavLink>
           </li>

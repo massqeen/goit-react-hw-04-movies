@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styles from './MoviesListItem.module.css';
 
 const MoviesListItem = ({ url, id, title, from }) => (
-  <li>
-    <Link to={{ pathname: `${url}/${id}`, state: { from } }}>{title}</Link>
+  <li className={styles.item}>
+    <Link
+      to={{ pathname: `${url}/${id}`, state: { from } }}
+      className={styles.link}
+    >
+      {title}
+    </Link>
   </li>
 );
 

@@ -3,7 +3,12 @@ import { NavLink } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
-const style = { textDecoration: 'none', fontSize: '16px', color: '#3f51b5' };
+const style = {
+  textDecoration: 'none',
+  fontSize: '16px',
+  color: '#3f51b5',
+  padding: '8px 12px',
+};
 const Navigation = () => (
   <>
     <ul style={{ display: 'flex' }}>
@@ -11,7 +16,11 @@ const Navigation = () => (
         <Button
           variant="outlined"
           color="default"
-          style={{ marginRight: '10px', backgroundColor: '#f0f0f0' }}
+          style={{
+            marginRight: '10px',
+            backgroundColor: '#f0f0f0',
+            padding: 0,
+          }}
         >
           <NavLink style={style} to="/" exact activeStyle={{ color: 'red' }}>
             Home
@@ -22,7 +31,7 @@ const Navigation = () => (
         <Button
           variant="outlined"
           color="primary"
-          style={{ backgroundColor: '#f0f0f0' }}
+          style={{ backgroundColor: '#f0f0f0', padding: 0 }}
         >
           <NavLink
             to="/movies"

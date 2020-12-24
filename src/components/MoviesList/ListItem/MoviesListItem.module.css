@@ -1,0 +1,11 @@
+.item {
+  margin-bottom: 6px;
+}
+
+.link {
+  text-decoration-line: none;
+}
+
+.link:hover {
+  text-decoration-line: underline;
+}

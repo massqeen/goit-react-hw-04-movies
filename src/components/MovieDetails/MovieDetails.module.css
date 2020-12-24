@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.contentInfoWrapper {
+  flex-basis: 60%;
+}
+
+.additionLinks {
+  display: flex;
+  justify-content: center;
+}
