@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
+import routes from '../../routes';
 
 const style = {
   textDecoration: 'none',
@@ -22,7 +23,12 @@ const Navigation = () => (
             padding: 0,
           }}
         >
-          <NavLink style={style} to="/" exact activeStyle={{ color: 'red' }}>
+          <NavLink
+            style={style}
+            to={routes.home}
+            exact
+            activeStyle={{ color: 'red' }}
+          >
             Home
           </NavLink>
         </Button>
@@ -34,7 +40,7 @@ const Navigation = () => (
           style={{ backgroundColor: '#f0f0f0', padding: 0 }}
         >
           <NavLink
-            to="/movies"
+            to={routes.movies}
             exact
             style={style}
             activeStyle={{ color: 'red' }}

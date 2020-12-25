@@ -1,4 +1,5 @@
 import React from 'react';
+import routes from '../../routes';
 import { trendingURL, options } from '../../assets/api/moviesAPI';
 import MoviesList from '../../components/MoviesList/MoviesList';
 import Spinner from '../../components/Spinner';
@@ -20,7 +21,9 @@ const HomeView = () => {
         <p>{`Sorry, no trending movies for today. ${error.message}`}</p>
       )}
       {movies && <h2>Trending today</h2>}
-      {movies && <MoviesList movies={movies} url="/movies" from="/" />}
+      {movies && (
+        <MoviesList movies={movies} url={routes.movies} from={routes.home} />
+      )}
       {loading && <Spinner />}
     </>
   );

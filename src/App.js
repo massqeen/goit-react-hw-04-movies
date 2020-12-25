@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import routes from './routes';
 import Container from './components/Container/Container';
 import Navigation from './components/Navigation/Navigation';
 import Spinner from './components/Spinner';
@@ -22,10 +23,10 @@ const App = () => (
     <Navigation />
     <Suspense fallback={<Spinner />}>
       <Switch>
-        <Route path="/" exact component={HomeView} />
-        <Route path="/movies" exact component={MoviesView} />
-        <Route path="/movies/:movieId" component={MovieDetailsView} />
-        <Redirect to="/" />
+        <Route path={routes.home} exact component={HomeView} />
+        <Route path={routes.movies} exact component={MoviesView} />
+        <Route path={routes.movieDetails} component={MovieDetailsView} />
+        <Redirect to={routes.home} />
       </Switch>
     </Suspense>
   </Container>

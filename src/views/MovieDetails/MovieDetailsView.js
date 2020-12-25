@@ -5,6 +5,7 @@ import {
   useLocation,
   useHistory,
 } from 'react-router';
+import routes from '../../routes';
 import { Route, Switch } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { detailsURL, options } from '../../assets/api/moviesAPI';
@@ -24,7 +25,7 @@ const MovieDetailsView = () => {
     `${detailsURL}/${movieId}`,
     options
   );
-  const { url, path } = useRouteMatch();
+  const { url } = useRouteMatch();
   const { state } = useLocation();
   const history = useHistory();
 
@@ -60,8 +61,8 @@ const MovieDetailsView = () => {
       {movie && <MovieDetails movie={movie} url={url} from={state.from} />}
       {loading && <Spinner />}
       <Switch>
-        <Route path={`${path}/cast`} component={CastContainer} />
-        <Route path={`${path}/reviews`} component={ReviewsContainer} />
+        <Route path={routes.cast} component={CastContainer} />
+        <Route path={routes.reviews} component={ReviewsContainer} />
       </Switch>
     </>
   );
